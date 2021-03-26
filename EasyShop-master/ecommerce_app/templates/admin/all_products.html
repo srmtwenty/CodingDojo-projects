@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin all products</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'admin.css' %}">
+</head>
+<body>
+    <div id="container">
+        <p class="top-right"><a href="/admin">Go back to admin</a></p>
+        <h1>Products</h1>
+        
+        <a href="/admin/new" class="button">Add a product</a>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Desc</th>
+                <th>Categories</th>
+                <th>Actions</th>
+            </tr>
+            {% for product in all_products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.description }}</td>
+                <td>
+                    {% for cat in product.categories.all %}
+                    {{ cat.category }},
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="/admin/products/{{product.id}}/edit">Edit</a>|
+                    <a href="/admin/products/{{product.id}}/delete">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
